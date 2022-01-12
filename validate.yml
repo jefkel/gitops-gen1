@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: check environment
+      ansible.builtin.debug:
+        msg: "Environment ({{ env }}) - {{ version }}"
