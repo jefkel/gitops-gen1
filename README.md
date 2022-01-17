@@ -19,4 +19,7 @@ Run the following to validate the inventory control of the lifecycle/environment
 
 ``` bash
 ansible-playbook validate.yml [-i <inventory file>]
+
+eg:
+ansible-playbook validate.yml -i inventory/sbx
 ```
