@@ -5,3 +5,8 @@
     - name: check environment
       ansible.builtin.debug:
         msg: "Environment ({{ env }}) - {{ version }}"
+
+    - name: Create crb admin template
+      ansible.builtin.template:
+        src: ./templates/crb-cluster-admin.yml.j2
+        dest: ./generated/crb-iac-cluster-admin.yaml

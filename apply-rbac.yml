@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    # These lists are used in the template and are required to be defined.
+    # Add to the lists to add more subjects to the clusterRoleBinding object
+    #crb_groups:
+    #  - aadgroup-admin
+    #crb_users: []  # This is a sample of how to have an empty list (in this case
+    #               # the crb will not have any user subjects)
+    
+    # Integrate or leverage inventory variables:
+    crb_groups: '{{ cluster_admin_groups }}'
+    crb_users: '{{ cluster_admin_users }}'
+
+  tasks:
+    # with_items: sets the clusterRole name for the template
+    - name: Create crb admin template
+      ansible.builtin.template:
+        src: ./templates/crb-template.yml.j2
+        dest: ./generated/crb-iac-{{ item }}.yaml
+      with_items:
+        - cluster-admin

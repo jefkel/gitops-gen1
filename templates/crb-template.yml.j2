@@ -1,0 +1,21 @@
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: iac-{{ item }}
+  labels:
+    tier: GitOps
+roleRef:
+  kind: ClusterRole
+  name: {{ item }}
+  apiGroup:rbac.authorization.k8s.io
+subjects:
+{% for group in crb_groups  %}
+- kind: Group
+  name: {{ group }}
+  apiGroup: rbac.authorization.k8s.io
+{% endfor %}
+{% for individual in crb_users %}
+- kind: User
+  name: {{ individual }}
+  apiGroup: rbac.authorization.k8s.io
+{% endfor %}

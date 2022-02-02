@@ -1,3 +1,8 @@
 ---
 env: "CORE"
 version: "0.01"
+cluster_admin_groups:
+  - aad-aro-{{ env }}-cladmin
+cluster_admin_users: []
+cluster_reader_groups:
+  - aad-aro-{{ env }}-clreader
