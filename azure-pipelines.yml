@@ -25,11 +25,12 @@ steps:
 - script: |
     helm repo add bitnami https://charts.bitnami.com/bitnami
     oc project dga-ecomm-dev
-    helm template redis-cache bitnami/redis -f params-dev.yaml > ./redis-deploy-dev.yaml
+    mkdir ~/generated
+    helm template redis-cache bitnami/redis -f params-dev.yaml > ~/generated/redis-deploy-dev.yaml
 
 - task: oc-cmd@2
   inputs:
     openshiftService: 'Jeff-Test'
-    cmd: 'oc -n dga-ecomm-dev apply -f /home/vsts/work/1/s/redis-deploy-dev.yaml'
+    cmd: 'oc -n dga-ecomm-dev apply -f ~/generated/redis-deploy-dev.yaml'
     uselocalOc: true
 
