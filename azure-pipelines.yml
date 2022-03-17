@@ -27,11 +27,11 @@ steps:
     oc project dga-ecomm-dev
     mkdir ~/generated; ls ~/
     helm template redis-cache bitnami/redis -f params-dev.yaml > ~/generated/redis-deploy-dev.yaml
-    echo "Generated"; ls ~/generated
+    echo "Generated"; ls ~/generated; echo "---"; cd ~/generated; pwd
 
 - task: oc-cmd@2
   inputs:
     openshiftService: 'Jeff-Test'
-    cmd: 'oc -n dga-ecomm-dev apply -f ~/generated/redis-deploy-dev.yaml'
+    cmd: 'pwd; oc -n dga-ecomm-dev apply -f ~/generated/redis-deploy-dev.yaml'
     uselocalOc: true
 
