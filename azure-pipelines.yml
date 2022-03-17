@@ -17,6 +17,13 @@ steps:
   inputs:
     openshiftService: 'Jeff-Test'
 
+- task: HelmInstaller@1
+  displayName: Helm installer
+  inputs: 
+    helmVersionToInstall: latest
+
 - script: |
-    oc -n dga-ecomm-dev apply -f ./templates/service-acct.yaml
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm template redis-cache bitnami/redis -f params-dev.yaml > ./redis-deploy-dev.yaml
+    oc -n dga-ecomm-dev apply -f ./redis-deploy-dev.yaml
 

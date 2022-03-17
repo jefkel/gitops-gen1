@@ -1,0 +1,33 @@
+global: 
+## Override to pull from Quay.io for integrated scanning
+  imageRegistry: quay.io
+# Add if storageClass other than the cluster default
+#  storageClass: "myStorageClassName"
+master:
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    runAsUser: null
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "50Mi"
+    limits: 
+      cpu: "500m"
+      memory: "256Mi"
+  persistence:
+    size: "1Gi"
+replica:
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    runAsUser: null
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "50Mi"
+    limits: 
+      cpu: "500m"
+      memory: "256Mi"
+  persistence:
+    size: "1Gi"
