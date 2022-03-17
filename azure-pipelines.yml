@@ -30,6 +30,6 @@ steps:
 - task: oc-cmd@2
   inputs:
     openshiftService: 'Jeff-Test'
-    cmd: 'oc -n dga-ecomm-dev apply -f ./redis-deploy-dev.yaml'
+    cmd: 'oc -n dga-ecomm-dev apply -f /home/vsts/work/1/s/redis-deploy-dev.yaml'
     uselocalOc: true
 
