@@ -25,8 +25,9 @@ steps:
 - script: |
     helm repo add bitnami https://charts.bitnami.com/bitnami
     oc project dga-ecomm-dev
-    mkdir ~/generated
+    mkdir ~/generated; ls ~/
     helm template redis-cache bitnami/redis -f params-dev.yaml > ~/generated/redis-deploy-dev.yaml
+    echo "Generated"; ls ~/generated
 
 - task: oc-cmd@2
   inputs:
