@@ -1,0 +1,40 @@
+# Create the service account that will be used to create a azure service connection that will
+# permit the pipelines to deploy to the cluster.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: az-pipeline
+  labels:
+    app: projectInit
+---
+# Give the service account the project admin role so that we may also manage our projects user role bindings
+# via the pipeline.
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: "az-pipeline-edit"
+  labels:
+    app: projectInit
+subjects:
+  - kind: ServiceAccount
+    name: "az-pipeline"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+---
+# Required so that the pipeline is able to deploy prometheus monitoring and alerting manifests
+# NOTE: Expected failure with this binding as this role access is still pending for the project devops admin.
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: "az-pipeline-monitor"
+  labels:
+    app: projectInit
+subjects:
+  - kind: ServiceAccount
+    name: "az-pipeline"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: monitoring-edit
